@@ -11,7 +11,7 @@ const axios = require ('axios');
 
 const app = express();
 const PORT = 3000;
-
+const PING_URL = "https://loansandauctions.onrender.com";
 /*
 -----------------------------------------
 MIDDLEWARE
