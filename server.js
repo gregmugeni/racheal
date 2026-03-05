@@ -12,6 +12,19 @@ const axios = require ('axios');
 const app = express();
 const PORT = 3000;
 const PING_URL = "https://loansandauctions.onrender.com";
+
+// Schedule a job to run every 10 minutes
+cron.schedule("*/10 * * * *", async () => {
+    try {
+        const response = await axios.get(PING_URL);
+        console.log("App pinged successfully:", response.status);
+    } catch (error) {
+        console.error("Error pinging app:", error.message);
+    }
+});
+
+console.log("Cron job scheduled to keep the app awake.");
+
 /*
 -----------------------------------------
 MIDDLEWARE
@@ -32,17 +45,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 
 
-// Schedule a job to run every 10 minutes
-cron.schedule("*/10 * * * *", async () => {
-    try {
-        const response = await axios.get(PING_URL);
-        console.log("App pinged successfully:", response.status);
-    } catch (error) {
-        console.error("Error pinging app:", error.message);
-    }
-});
-
-console.log("Cron job scheduled to keep the app awake.");
 
 /*
 Explicit homepage route
